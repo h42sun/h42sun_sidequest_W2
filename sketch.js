@@ -32,7 +32,7 @@ let blob3 = {
 
   // Friction
   frictionAir: 0.995, // Light friction in air
-  frictionGround: 0.88, // Stronger friction on ground
+  frictionGround: 1, // Moves quicker on ground due to panic; easier to fall down
 };
 
 // List of solid platforms the blob can stand on
@@ -63,7 +63,17 @@ function setup() {
 }
 
 function draw() {
-  background(240);
+  //Make background flash red with yellow "DANGER" sign if on ground; otherwise, keep background grey
+  if (frameCount % 60 < 30) {
+    //[1][2]
+    background(255, 0, 0);
+    textSize(100);
+    fill(255, 255, 0);
+    textAlign(CENTER, CENTER);
+    text("DANGER", 320, 180);
+  } else {
+    background(255, 0, 0);
+  }
 
   // --- Draw all platforms ---
   fill(200);
@@ -141,6 +151,8 @@ function draw() {
 
   // --- HUD ---
   fill(0);
+  textSize(14);
+  textAlign(LEFT);
   text("Move: A/D or ←/→  •  Jump: Space/W/↑  •  Land on platforms", 10, 18);
 }
 
